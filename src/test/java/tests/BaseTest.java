@@ -9,6 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestContext;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import pages.NewAccountPage;
 
 import java.util.HashMap;
 
@@ -16,6 +17,7 @@ import java.util.HashMap;
 public class BaseTest {
 
     WebDriver driver;
+    NewAccountPage newAccountPage;
 
     @Parameters({"browser"})
     @BeforeMethod(alwaysRun = true, description = "Настройка драйвера")
@@ -36,6 +38,8 @@ public class BaseTest {
         }
         iTestContext.setAttribute("driver", driver);
         driver.manage().window().maximize();
+
+        newAccountPage = new NewAccountPage(driver);
     }
 
     @AfterMethod(alwaysRun = true, description = "Закрытие браузера")
