@@ -1,25 +1,21 @@
 package tests;
 
-import org.openqa.selenium.By;
+import dto.Account;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import static dto.AccountFactory.getAccount;
 
 public class AddAccountTest extends BaseTest {
 
-    @Test
-    public void checkAddAccount() throws InterruptedException {
-        driver.get("https://demo.suiteondemand.com/index.php?module=Users&action=Login");
-        driver.findElement(By.id("user_name")).sendKeys("will");
-        driver.findElement(By.id("username_password")).sendKeys("will");
-        driver.findElement(By.cssSelector("[title='Log In']")).click();
+    Account account1 = getAccount(
+            "Integrator",
+            "Energy"
+    );
 
-        newAccountPage.open();
-        newAccountPage.createAccount(
-                "test",
-                "+23456789",
-                "+12345678",
-                "test",
-                "test",
-                "Integrator",
-                "Energy");
+    @Test
+    public void checkAddAccount() {
+        loginStep.auth("will", "will");
+        accountStep.createAccount(account1);
     }
 }
